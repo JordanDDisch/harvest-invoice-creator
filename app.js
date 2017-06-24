@@ -54,7 +54,6 @@ function setProjects(tasks) {
 function mapProjects(obj) {
   for(var i = 0; i < obj.tasks.length; i++) {
     obj.tasks[i].day_entry['project_name'] = obj.projects[i].project.name;
-
   }
   return obj.tasks;
 }

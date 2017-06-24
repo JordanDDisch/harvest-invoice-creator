@@ -12,6 +12,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "harvest": "git+https://github.com/log0ymxm/node-harvest.git",
+    "kss": "^3.0.0-beta.18",
     "node-env-file": "^0.1.8",
     "twig": "^1.10.5"
   }
