@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Desoral Invoices</title>
+    <link rel="stylesheet" href="/css/styles.css">
+  </head>
+  <body>
+    <div class="logo__wrapper">
+      <img src="/images/jordandisch_logo.png" alt="logo">
+    </div>
+    <div class="header-small">
+      <div class="header-small__left">INVOICE</div>
+      <div>Prepared for Robert Caracaus</div>
+    </div>
+    <table>
+      <tr>
+        <td class="column__task">
+          Task
+        </td>
+        <td class="column__project">
+          Project
+        </td>
+        <td>
+          Date
+        </td>
+        <td>
+          Hours
+        </td>
+        <td>
+          Cost Rate
+        </td>
+        <td>
+          Currency
+        </td>
+      </tr>
+      {% for task in data  %}
+        <tr>
+          <td>
+            {{ task.day_entry.notes }}
+          </td>
+          <td>
+            {{ task.day_entry.project_name }}
+          </td>
+          <td>
+            {{ task.day_entry.spent_at }}
+          </td>
+          <td>
+            {{ task.day_entry.hours }}
+          </td>
+          <td>
+            {% if task.day_entry.project_name == "Sonesta" %}
+              23
+            {% else %}
+              25
+            {% endif %}
+          </td>
+          <td>
+            USD (United States Dollar)
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

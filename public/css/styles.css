@@ -1,0 +1,39 @@
+table {
+  width: 960px;
+  margin: auto;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+td {
+  border: 1px solid black;
+  padding: .5rem;
+}
+
+.logo__wrapper {
+  width: 960px;
+  margin: auto;
+  padding: 2rem 0;
+}
+
+.column__task {
+  width: 400px;
+}
+
+.column__project {
+  width: 100px;
+}
+
+.header-small {
+  width: 960px;
+  margin: auto;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-small__left {
+  font-size: 24px;
+  font-weight: bold;
+}
