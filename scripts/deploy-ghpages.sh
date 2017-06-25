@@ -9,11 +9,11 @@ set -e
 
 git checkout gh-pages
 git rm -rf .
-ls
+git clean -df
 git pull origin master
 
 # stage any changes and new files
-git add -A
+git add .
 # now commit, ignoring branch gh-pages doesn't seem to work, so trying skip
 git commit --allow-empty -m "Deploy to GitHub pages [ci skip]"
 # and push, but send any output to /dev/null to hide anything sensitive
