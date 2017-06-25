@@ -7,6 +7,7 @@
 # abort the script if there is a non-zero error
 set -e
 
+ls
 cd harvest-invoice-creator
 
 git checkout gh-pages
