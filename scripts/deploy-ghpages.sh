@@ -19,7 +19,7 @@ git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
 git init
 git remote add --fetch origin "$remote"
-
+git pull origin master
 
 # switch into the the gh-pages branch
 if git rev-parse --verify origin/gh-pages > /dev/null 2>&1
