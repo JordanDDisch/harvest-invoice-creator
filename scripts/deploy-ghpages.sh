@@ -27,6 +27,7 @@ then
     ls
 else
     git checkout --orphan gh-pages
+    ls
 fi
 
 # copy over or recompile the new site
