@@ -9,6 +9,7 @@ set -e
 
 git checkout gh-pages
 git rm -rf .
+ls
 git pull origin master
 
 # stage any changes and new files
