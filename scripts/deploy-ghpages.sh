@@ -22,7 +22,7 @@ git remote add --fetch origin "$remote"
 git pull origin master
 
 git checkout -b gh-pages
-ls
+rm -rf templates
 
 # stage any changes and new files
 git add -A
