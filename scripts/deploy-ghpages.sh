@@ -8,8 +8,10 @@
 set -e
 
 git checkout gh-pages
+git reset --hard HEAD
 git rm -rf .
 git clean -df
+git status
 git pull origin master
 
 # stage any changes and new files
