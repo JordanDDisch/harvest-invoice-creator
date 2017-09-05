@@ -6,11 +6,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "harvest": "git+https://github.com/log0ymxm/node-harvest.git",
+    "html-pdf": "^2.1.0",
+    "jquery": "^3.2.1",
     "kss": "^3.0.0-beta.18",
+    "node-cmd": "^3.0.0",
     "node-env-file": "^0.1.8",
-    "twig": "^1.10.5"
+    "phantom": "^4.0.4",
+    "twig": "^1.10.5",
+    "underscore.string": "^3.3.4"
   }
 }

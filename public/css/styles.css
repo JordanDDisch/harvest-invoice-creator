@@ -1,6 +1,10 @@
-table {
+.layout-max {
   width: 960px;
   margin: auto;
+}
+
+table {
+  width: 100%;
   border-collapse: collapse;
   border: 1px solid black;
 }
@@ -11,9 +15,17 @@ td {
 }
 
 .logo__wrapper {
-  width: 960px;
-  margin: auto;
+  width: 100%;
   padding: 2rem 0;
+}
+
+.pricing_column {
+  display: flex;
+  justify-content: space-between;
+  max-width: 100%;
+  margin: 1rem 0;
+  padding: 2rem;
+  border: 1px solid;
 }
 
 .column__task {
@@ -25,7 +37,7 @@ td {
 }
 
 .header-small {
-  width: 960px;
+  width: 100%;
   margin: auto;
   padding: 1rem 0;
   display: flex;

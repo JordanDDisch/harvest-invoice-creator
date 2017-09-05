@@ -2,15 +2,19 @@ var express = require('express');
 var request = require('request');
 var dotenv = require('dotenv').config();
 var Harvest = require('harvest');
-var Twig = require("twig");
+var Twig = require('twig');
+var cmd = require('node-cmd');
+var fs = require('fs');
+var pdf = require('html-pdf');
+var classify = require('underscore.string/classify')
 var	harvest = new Harvest({
     subdomain: process.env.HARVEST_SUBDOMAIN,
     email: process.env.HARVEST_EMAIL,
     password: process.env.HARVEST_PASSWORD
   });
-var Reports = harvest.Reports;
-var Projects = harvest.Projects;
-var People = harvest.People;
+var Reports = harvest.reports;
+var Projects = harvest.projects;
+var People = harvest.people;
 var app = express();
 
 app.set('views', __dirname + '/public/views');
@@ -20,24 +24,40 @@ app.set('view engine', 'twig');
 var userID = 1657332;
 
 var getTimeEntries = new Promise(function(resolve, reject) {
-  Reports.timeEntriesByUser({
-    user_id: userID,
-    from: '20170501',
-    to: "20170531"
-  }, function(err, tasks) {
+  Reports.timeEntriesByUser(userID,
+  {
+    from: '20170801',
+    to: "20170831"
+  },
+  function(err, tasks) {
     if (err) throw new Error(err);
-
-    resolve(tasks);
+    resolve(tasks.body);
   });
 })
 
 function getProjects(projectId) {
   return new Promise(function(resolve, reject) {
-    Projects.get({id: projectId}, function(err, tasks) {
+    Projects.get(projectId, function(err, tasks) {
       if (err) throw new Error(err);
-      resolve(tasks);
+      resolve(tasks.body);
     })
   })
+}
+
+function calcluateTotalHours(tasks) {
+  var obj = {};
+  var total_hours = {}
+  tasks.forEach(function(task) {
+    var projectCamelizedName = classify(task.day_entry.project_name);
+    if(total_hours.hasOwnProperty(projectCamelizedName)) {
+      total_hours[projectCamelizedName] += task.day_entry.hours;
+    } else {
+      total_hours[projectCamelizedName] = task.day_entry.hours;
+    }
+  })
+  obj['tasks'] = tasks;
+  obj['total_hours'] = total_hours;
+  return obj;
 }
 
 function setProjects(tasks) {
@@ -60,26 +80,29 @@ function mapProjects(obj) {
 
 function getUsers(tasks) {
   return new Promise(function(resolve, reject) {
-    People.get({id: userID}, function(err, user) {
+    People.get(userID, function(err, user) {
       if (err) throw new Error(err);
-      console.log(user);
       resolve(user);
     })
   })
 }
 
+app.post('/render-pdf', function (req, res) {
+  cmd.run('curl -0 localhost:3000 > jordanddisch-invoice.html');
+  console.log('asdf');
+})
+
 app.get('/', function (req, res) {
 
   getTimeEntries.then(setProjects)
   .then(mapProjects)
-  .then()
+  .then(calcluateTotalHours)
   .then(function(tasks) {
-    console.log(tasks)
     res.render('index.twig', {
       data: tasks
     });
   });
 })
 
-console.log("App running on port: 3000");
+console.log('App running on port: 3000');
 app.listen(3000);

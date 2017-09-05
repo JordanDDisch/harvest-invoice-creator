@@ -6,60 +6,86 @@
     <link rel="stylesheet" href="/css/styles.css">
   </head>
   <body>
-    <div class="logo__wrapper">
-      <img src="/images/jordandisch_logo.png" alt="logo">
-    </div>
-    <div class="header-small">
-      <div class="header-small__left">INVOICE</div>
-      <div>Prepared for Robert Caracaus</div>
-    </div>
-    <table>
-      <tr>
-        <td class="column__task">
-          Task
-        </td>
-        <td class="column__project">
-          Project
-        </td>
-        <td>
-          Date
-        </td>
-        <td>
-          Hours
-        </td>
-        <td>
-          Cost Rate
-        </td>
-        <td>
-          Currency
-        </td>
-      </tr>
-      {% for task in data  %}
+    <div class="layout-max">
+      <button id="create-pdf" type="button" name="button"></button>
+      <div class="logo__wrapper">
+        <img src="/images/jordandisch_logo.png" alt="logo">
+      </div>
+      <div class="header-small">
+        <div class="header-small__left">INVOICE</div>
+        <div>Prepared for Robert Caracaus</div>
+      </div>
+      <table>
         <tr>
-          <td>
-            {{ task.day_entry.notes }}
+          <td class="column__task">
+            Task
+          </td>
+          <td class="column__project">
+            Project
           </td>
           <td>
-            {{ task.day_entry.project_name }}
+            Date
           </td>
           <td>
-            {{ task.day_entry.spent_at }}
+            Hours
           </td>
           <td>
-            {{ task.day_entry.hours }}
+            Cost Rate
           </td>
           <td>
-            {% if task.day_entry.project_name == "Sonesta" %}
-              23
-            {% else %}
-              25
-            {% endif %}
-          </td>
-          <td>
-            USD (United States Dollar)
+            Currency
           </td>
         </tr>
-      {% endfor %}
-    </table>
+        {% for task in data.tasks  %}
+          <tr>
+            <td>
+              {{ task.day_entry.notes }}
+            </td>
+            <td>
+              {{ task.day_entry.project_name }}
+            </td>
+            <td>
+              {{ task.day_entry.spent_at }}
+            </td>
+            <td>
+              {{ task.day_entry.hours }}
+            </td>
+            <td>
+              {% if task.day_entry.project_name == "Sonesta" %}
+                23
+              {% else %}
+                25
+              {% endif %}
+            </td>
+            <td>
+              USD (United States Dollar)
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+      <div class="pricing_column">
+        <div>
+          <div>To be paid in full to: Jordan Dustin Disch</div>
+          <div>Account Number: 6098602771</div>
+          <div>Routing numbers: 121000248</div>
+        </div>
+        <div>
+          <span>Total Hours: {{ data.total_hours.OurAmericaInitiative|round(1, 'common') }}</span>
+          <strong>Total Cost: ${{ data.total_hours.OurAmericaInitiative|round(1, 'common') * 25 }}</strong>
+        </div>
+      </div>
+    </div>
   </body>
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript">
+  $('#create-pdf').click(function() {
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/render-pdf'
+    });
+  });
+  </script>
 </html>
